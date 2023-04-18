@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/assets/css/flipclock.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="static/css/style.css">
+    <script>
+   function digitalClock() {
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+       //* добавление ведущих нулей */
+      if (hours < 10) hours = "0" + hours;
+      if (minutes < 10) minutes = "0" + minutes;
+      if (seconds < 10) seconds = "0" + seconds;
+        document.getElementById("clock").innerHTML = hours + ":" + minutes + ":" + seconds;
+        setTimeout("digitalClock()", 1000);
+   }
+  </script>
+</head>
+<body>
+
+	<div id="map-test" class="map">
+        <script src="https://api-maps.yandex.ru/2.1/?apikey=dbc25711-385e-4dfa-835e-f3b9cf41c5a7&lang=ru_RU">
+	</script>
+    </div>
+
+    <input type="checkbox" id="nav-toggle" hidden>
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+
+    <div class="mask-content"></div>
+
+    <div id="clock"></div>
+    <script>digitalClock();</script>
+<!--    <span id="clock"-->
+<!--        style="background-color: #2F4F4F; color: #00FF7F; border:4px outset #FFA500; padding:5px 20px;">-->
+<!--    </span>-->
+    <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick=""></label>
+            <div class="container">
+
+              <a href="/registration" class="button">
+                <div class="button__line"></div>
+                <div class="button__line"></div>
+                <span class="button__text">Profile</span>
+                <div class="button__drow1"></div>
+                <div class="button__drow2"></div>
+              </a>
+
+        </div>
+             <div id="prof">{{user}}</div>
+        </nav>
+	<div class="weather">
+        <div>
+            <div>
+                <div class="block">
+                    <img class="img" id="weather_img_1" src="">
+                    <span class="grad" id="grad_1"></span>
+                    <span class="time" id="time_1"></span>
+                </div>
+                <div class="block">
+                    <img class="img" id="weather_img_2" src="">
+                    <span class="grad" id="grad_2"></span>
+                    <span class="time" id="time_2"></span>
+                </div>
+                <div class="block">
+                    <img class="img" id="weather_img_3" src="">
+                    <span class="grad" id="grad_3"></span>
+                    <span class="time" id="time_3"></span>
+                </div>
+                <div class="block">
+                    <img class="img" id="weather_img_4" src="">
+                    <span class="grad" id="grad_4"></span>
+                    <span class="time" id="time_4"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="sale_opt">
+
+        <button class="mobile-button" onclick="marsh1() ">Павильон Казахстан<br>(5 минут)</button>
+        <button class="mobile-button" onclick="marsh2()">Музей Космонавтики<br>(11 минут)</button>
+        <button class="mobile-button" onclick="marsh3()">Москвариум<br>(15 минут)</button>
+        <button class="mobile-button" onclick="marsh6()">Павильон космонавтики<br>(14 минут)</button>
+        <button class="mobile-button" onclick="marsh4()">До катка<br>(14 минут)</button>
+
+        <button class="mobile-button" onclick="marsh5()">Кафе Варежка<br>(2 минуты)</button>
+        <button class="mobile-button" onclick="marsh7()">Вкусно и точка<br>(4 минуты)</button>
+    </div>
+    <script src="static/map.js"></script>
+    <div id="data"> <script  language="javascript" type="text/javascript"  >
+
+        var d = new Date();
+
+        var day=new Array("Воскресенье","Понедельник","Вторник",
+        "Среда","Четверг","Пятница","Суббота");
+
+        var month=new Array("января","февраля","марта","апреля","мая","июня",
+        "июля","августа","сентября","октября","ноября","декабря");
+
+        document.write(day[d.getDay()]+" " +d.getDate()+ " " + month[d.getMonth()]);
+
+    //--></script></div>
+
+
+<!--    <div id="data1"></div>-->
+<!--        <script>data();</script>-->
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nice dark sign in form</title>
+    <link rel="stylesheet" href="static/css/login.css">
+
+
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Log In </h2>
+    <a href="/registration"><h2 class="inactive underlineHover">Sign Up </h2></a>
+
+    <!-- Icon -->
+
+
+    <!-- Login Form -->
+    <form method="post" action="" autocomplete="off">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+      <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+
+
+  </div>
+</div>
+ {% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for message in messages %}
+         {{ message }}
+      {% endfor %}
+   {% endif %}
+{% endwith %}
+
+
+</body>
+</html>
