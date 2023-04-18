@@ -81,6 +81,7 @@ def login():
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
+    #zfasdadaw
     if 'login' in session and session['login'] == 1:
         return redirect('/about')
     if request.method == 'GET':
