@@ -1,4 +1,4 @@
-# import datetime
+import datetime
 from flask import render_template, Flask
 from flask import url_for
 from flask import redirect
@@ -35,23 +35,28 @@ sql.execute("""CREATE TABLE IF NOT EXISTS routes (
 class User(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50),
-                     index=True, unique=True, nullable=True)
-    password = db.Column(db.String(500), nullable=True)
+    id = db.Column(db.Integer, primary_key=True,
+                   autoincrement=True)
+    name = db.Column(db.String
+                     , nullable=True)
+    email = db.Column(db.String,
+                      index=True, unique=True, nullable=True)
+    hashed_password = db.Column(db.String, nullable=True)
 
-    # created_date = db.Column(db.DateTime,
-    #                          default=datetime.datetime.now)
+    created_date = db.Column(db.DateTime,
+                             default=datetime.datetime.now)
+    profiles = orm.relationship("Profiles", back_populates='user')
 
-    def __init__(self, name: str, password: str):
+    def __init__(self, name: str, email: str, hashed_password: str):
         self.name = name
-        self.password = password
-        # self.created_date = created_date
+        self.email = email
+        self.hashed_password = hashed_password
 
     def __repr__(self):
         return f'Пользователь {self.name}.' \
-               f'Пароль {self.password}'
-        # f'Дата создания {self.created_date}'
+               f'Почта {self.email}' \
+               f'Пароль {self.hashed_password}' \
+               f'Дата создания {self.created_date}'
 
 
 class News(db.Model):
@@ -78,12 +83,19 @@ class News(db.Model):
 class Profile(db.Model):
     __tablename__ = 'profiles'
 
-    id = db.Column(db.Integer, primary_key=True)
-    age = db.Column(db.Integer)
-    city = db.Column(db.String(100))
-    cnt_ent = db.Column(db.Integer, nullable=True, default=0)
-    cnt_marsh = db.Column(db.Integer, nullable=True, default=0)
-    age_acc = db.Column(db.Integer, nullable=True, default=1)
+    id = db.Column(db.Integer, primary_key=True,
+                   autoincrement=True)
+    age = db.Column(db.Integer, nullable=True)
+    city = db.Column(db.String(100), nullable=True)
+    cnt_ent = db.Column(db.Integer, nullable=True, default=0,
+                        autoincrement=True)
+    cnt_marsh = db.Column(db.Integer, nullable=True, default=0,
+                          autoincrement=True)
+    age_acc = db.Column(db.Integer, nullable=True, default=1,
+                        autoincrement=True)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey("users.id"))
+    user = orm.relationship('User')
 
     def __init__(self, age: int, city: str, cnt_ent: int, cnt_marsh: int, age_acc: int):
         self.age = age
@@ -146,7 +158,7 @@ def signup():
             flash('You already have a account')
             print(2)
             return redirect('/login')
-        new_user = User(name=name, password=generate_password_hash(password, method='sha256'))
+        new_user = User(name=name, hashed_password=generate_password_hash(password, method='sha256'))
         db.session.add(new_user)
         db.session.commit()
         return render_template('site_back.html')
